@@ -25,12 +25,9 @@ test:
 
 deploy_prod:
   stage: deploy
-  image: ruby:2.3
+  image: ruby:latest
   script:
-    - apt-get update -qy
-    - apt-get install -y ruby-dev
-    - gem install dpl
-    - dpl --provider=heroku --app=$HEROKU_PROD_APP --api-key=$HEROKU_API_KEY
+    - dpl --provider=heroku --app=$HEROKU_APP_PRODUCTION --api-key=$HEROKU_API_KEY
   environment:
     name: prod
     url: https://spring-boot-gitlab-ci-prod.herokuapp.com/
