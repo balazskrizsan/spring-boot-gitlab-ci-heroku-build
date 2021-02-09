@@ -5,6 +5,7 @@ cache:
 stages:
   - build
   - test
+  - deploy
 
 build:
   stage: build
@@ -19,5 +20,20 @@ test:
   image: maven:3.6.3-openjdk-15
   script:
     - mvn test
+  tags:
+    - docker
+
+deploy_prod:
+  stage: deploy
+  image: ruby:2.3
+  script:
+    - gem install dpl
+    - dpl --provider=heroku --app=$HEROKU_PROD_APP --api-key=$HEROKU_API_KEY
+  environment:
+    name: prod
+    url: https://spring-boot-gitlab-ci-prod.herokuapp.com/
+  when: manual
+  only:
+    - master
   tags:
     - docker
