@@ -28,11 +28,25 @@ deploy_prod:
   image: ruby:latest
   script:
     - gem install dpl
-    - dpl --provider=heroku --app=$HEROKU_APP_PRODUCTION --api-key=$HEROKU_API_KEY
+    - dpl --provider=heroku --app=$HEROKU_APP_PROD --api-key=$HEROKU_API_KEY
   environment:
     name: prod
     url: https://spring-boot-gitlab-ci-prod.herokuapp.com/
   when: manual
+  only:
+    - master
+  tags:
+    - docker
+
+deploy_stage:
+  stage: deploy
+  image: ruby:latest
+  script:
+    - gem install dpl
+    - dpl --provider=heroku --app=$HEROKU_APP_STAGE --api-key=$HEROKU_API_KEY
+  environment:
+    name: stage
+    url: https://spring-boot-gitlab-ci-stage.herokuapp.com/
   only:
     - master
   tags:
