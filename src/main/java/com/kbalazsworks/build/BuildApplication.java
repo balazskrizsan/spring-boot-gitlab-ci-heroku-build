@@ -14,6 +14,10 @@ public class BuildApplication
         SpringApplication.run(BuildApplication.class, args);
     }
 
+    private record test()
+    {
+    }
+
     @RestController
     public class TestController
     {
