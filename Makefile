@@ -23,7 +23,7 @@ d.ce: #docker clear everything
 di.l:
 	docker image ls
 
-d.i:
+di.i:
 	echo "====================== IMAGES =========================" > \dev\null
 	docker image ls
 	echo "====================== CONTAINERS =========================" > \dev\null
