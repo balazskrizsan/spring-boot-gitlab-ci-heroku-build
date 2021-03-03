@@ -5,6 +5,9 @@ dc.u:
 dc.ud:
 	docker-compose up -d
 	$(call print.info)
+dc.b:
+	docker-compose build
+	$(call print.info)
 dc.s:
 	docker-compose stop
 	$(call print.info)
