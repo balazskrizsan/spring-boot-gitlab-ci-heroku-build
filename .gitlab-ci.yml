@@ -3,7 +3,7 @@ cache:
     - /root/.m2/repository
 
 before_script:
-  - docker login -u=$DOCKER_HUB_USER -p=$DOCKER_HUB_PASSWORD
+  - docker login -u="$DOCKER_HUB_USER" -p="$DOCKER_HUB_PASSWORD" hub.docker.com
 
 stages:
 #  - build
@@ -28,7 +28,7 @@ stages:
 
 deploy_prod:
   stage: deploy
-  image: docker:19.03.12
+  image: docker:dind
   script:
     - docker-compose build
     - docker tag spring-boot-gitlab-ci-heroku-build_app $DOCKER_HUB_USER/spring-boot-gitlab-ci-heroku-build_app:latest_prod
