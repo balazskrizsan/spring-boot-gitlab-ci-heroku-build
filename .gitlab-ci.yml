@@ -28,7 +28,7 @@ stages:
 
 build:
   stage: build
-  image: docker:19.03.12
+  image: gitlab/gitlab-ee:latest
   services:
     - docker:19.03.12-dind
   script:
