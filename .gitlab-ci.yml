@@ -34,7 +34,7 @@ build:
   script:
     - docker-compose build
     - docker tag spring-boot-gitlab-ci-heroku-build_app registry.gitlab.com/krizsan.balazs/spring-boot-gitlab-ci-heroku-build:latest
-    - push registry.gitlab.com/krizsan.balazs/spring-boot-gitlab-ci-heroku-build:latest
+    - docker push registry.gitlab.com/krizsan.balazs/spring-boot-gitlab-ci-heroku-build:latest
   environment:
     name: prod
 #    url: https://spring-boot-gitlab-ci-prod.herokuapp.com/
