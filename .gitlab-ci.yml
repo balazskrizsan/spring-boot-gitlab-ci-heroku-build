@@ -7,27 +7,28 @@ before_script:
 
 stages:
   - build
-#  - test
+  - test
+  - package
 #  - deploy
-
-#build:
-#  stage: build
-#  image: maven:3.6.3-openjdk-15
-#  script:
-#    - mvn package -B
-#  tags:
-#    - docker
-#
-#test:
-#  stage: test
-#  image: maven:3.6.3-openjdk-15
-#  script:
-#    - mvn test
-#  tags:
-#    - docker
 
 build:
   stage: build
+  image: maven:3.6.3-openjdk-15
+  script:
+    - mvn package -B
+  tags:
+    - docker
+
+test:
+  stage: test
+  image: maven:3.6.3-openjdk-15
+  script:
+    - mvn test
+  tags:
+    - docker
+
+package:
+  stage: package
   image: tiangolo/docker-with-compose
   services:
     - docker:19.03.12-dind
