@@ -2,9 +2,6 @@ cache:
   paths:
     - /root/.m2/repository
 
-before_script:
-  - docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
-
 stages:
   - build
   - test
@@ -33,6 +30,7 @@ package:
   services:
     - docker:19.03.12-dind
   script:
+    - docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
     - docker-compose build
     - docker tag spring-boot-gitlab-ci-heroku-build_app registry.gitlab.com/krizsan.balazs/spring-boot-gitlab-ci-heroku-build:latest
     - docker push registry.gitlab.com/krizsan.balazs/spring-boot-gitlab-ci-heroku-build:latest
