@@ -6,13 +6,13 @@ stages:
   - build
   - test
   - package
-#  - deploy
+  - deploy
 
 build:
   stage: build
   image: maven:3.6.3-openjdk-15
   script:
-    - mvn package -B
+    - mvn clean install -DskipTests=true
   tags:
     - docker
 
@@ -33,26 +33,19 @@ package:
     - docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
     - docker-compose build
     - docker tag spring-boot-gitlab-ci-heroku-build_app registry.gitlab.com/krizsan.balazs/spring-boot-gitlab-ci-heroku-build:latest
-    - docker push registry.gitlab.com/krizsan.balazs/spring-boot-gitlab-ci-heroku-build:latest
-  environment:
-    name: prod
-#    url: https://spring-boot-gitlab-ci-prod.herokuapp.com/
-#  when: manual
   only:
     - master
   tags:
     - docker
 
-#deploy_stage:
-#  stage: deploy
-#  image: ruby:latest
-#  script:
-#    - gem install dpl
-#    - dpl --provider=heroku --app=$HEROKU_APP_STAGE --api-key=$HEROKU_API_KEY
-#  environment:
-#    name: stage
-#    url: https://spring-boot-gitlab-ci-stage.herokuapp.com/
-#  only:
-#    - master
-#  tags:
-#    - docker
+deploy:
+  stage: deploy
+  image: tiangolo/docker-with-compose
+  services:
+    - docker:19.03.12-dind
+  script:
+    - docker push registry.gitlab.com/krizsan.balazs/spring-boot-gitlab-ci-heroku-build:latest
+  only:
+    - master
+  tags:
+    - docker
