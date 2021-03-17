@@ -3,6 +3,9 @@ cache:
     - .m2/repository
     - /project
 
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2"
+
 stages:
   - build
 #  - test
