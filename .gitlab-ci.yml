@@ -4,19 +4,19 @@ cache:
     - /project
 
 stages:
-#  - build
+  - build
 #  - test
-  - package
-  - deploy
+  - package_and_push
 
-#build:
-#  stage: build
-#  image: maven:3.6.3-openjdk-15
-#  script:
-#    - mvn clean install -DskipTests=true
-#  tags:
-#    - docker
-#
+build:
+  stage: build
+  image: maven:3.6.3-openjdk-15
+  script:
+    - mvn clean install -DskipTests=true
+    - cp /builds/krizsan.balazs/spring-boot-gitlab-ci-heroku-build/target/build-0.0.1-SNAPSHOT.jar /project/app.jar
+  tags:
+    - docker
+
 #test:
 #  stage: test
 #  image: maven:3.6.3-openjdk-15
@@ -25,7 +25,7 @@ stages:
 #  tags:
 #    - docker
 
-package:
+package_and_push:
   stage: package
   image: tiangolo/docker-with-compose
   services:
@@ -34,18 +34,7 @@ package:
     - docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
     - docker-compose build
     - docker tag spring-boot-gitlab-ci-heroku-build_app registry.gitlab.com/krizsan.balazs/spring-boot-gitlab-ci-heroku-build:latest
-  only:
-    - master
-  tags:
-    - docker
-
-deploy:
-  stage: deploy
-  image: tiangolo/docker-with-compose
-  services:
-    - docker:19.03.12-dind
-  script:
-    - docker push registry.gitlab.com/krizsan.balazs/spring-boot-gitlab-ci-heroku-build:latest
+      - docker push registry.gitlab.com/krizsan.balazs/spring-boot-gitlab-ci-heroku-build:latest
   only:
     - master
   tags:
