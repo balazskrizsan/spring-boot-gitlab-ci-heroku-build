@@ -1,6 +1,6 @@
 cache:
   paths:
-    - /root/.m2/repository
+    - .m2/repository
     - /project
 
 stages:
