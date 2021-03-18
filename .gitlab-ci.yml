@@ -7,7 +7,7 @@ variables:
 
 stages:
   - build
-#  - test
+  - test
   - package_and_push
 
 build:
@@ -18,13 +18,13 @@ build:
   tags:
     - docker
 
-#test:
-#  stage: test
-#  image: maven:3.6.3-openjdk-15
-#  script:
-#    - mvn test
-#  tags:
-#    - docker
+test:
+  stage: test
+  image: maven:3.6.3-openjdk-15
+  script:
+    - mvn test
+  tags:
+    - docker
 
 package_and_push:
   stage: package_and_push
