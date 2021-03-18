@@ -35,7 +35,7 @@ package_and_push:
     - docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
     - docker-compose build
     - docker tag spring-boot-gitlab-ci-heroku-build_app registry.gitlab.com/krizsan.balazs/spring-boot-gitlab-ci-heroku-build:latest
-      - docker push registry.gitlab.com/krizsan.balazs/spring-boot-gitlab-ci-heroku-build:latest
+    - docker push registry.gitlab.com/krizsan.balazs/spring-boot-gitlab-ci-heroku-build:latest
   only:
     - master
   tags:
