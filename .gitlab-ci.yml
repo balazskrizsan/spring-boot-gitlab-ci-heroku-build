@@ -1,7 +1,6 @@
 cache:
   paths:
     - .m2/repository
-    - /project
 
 variables:
   MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
@@ -16,8 +15,6 @@ build:
   image: maven:3.6.3-openjdk-15
   script:
     - mvn clean install -DskipTests=true
-    - mkdir /project
-    - cp /builds/krizsan.balazs/spring-boot-gitlab-ci-heroku-build/target/build-0.0.1-SNAPSHOT.jar /project/app.jar
   tags:
     - docker
 
